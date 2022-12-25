@@ -3,10 +3,16 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse('Главная страница')
+    context = {
+        'text': "Это главная страница проекта Yatube"
+    }
+    return render(request, 'posts/index.html', context)
 
 def group_posts(request):
-    return HttpResponse('Страница с постами')
+    context = {
+        'text': "Здесь будет информация о группах проекта Yatube"
+    }
+    return render(request, 'posts/group_list.html', context)
 
 def post_detail(request, pk):
     return HttpResponse(f'Страница c новостью {pk}')
