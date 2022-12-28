@@ -1,22 +1,28 @@
 {% extends 'base.html' %}
 {% load static %}
-      {% block content %}
-      <div class="container py-5">
-        <h1>Все записи по выбранной группе:</h1>{{ post.group }}
-        {% for post in posts %}
-        <ul>
-          <li>
-            Автор: {{ post.author.get_full_name }}
-          </li>
-          <li>
-            Дата публикации: {{ post.pub_date|date:"d E Y" }}
-          </li>
-          <li>
-            Группа: {{ post.group }}
-          </li>
-        </ul>
-            <p>{{ post.text }}</p>
-        {% if not forloop.last %}<hr>{% endif %}
-        {% endfor %}
-      </div>
-      {% endblock %}
+
+
+<title>
+  {% block title %}
+    Записи сообщества {{ group }}
+  {% endblock %}
+</title>
+
+
+{% block content %}
+  <div class="container py-5">
+    <h2>Последние записи в группе "{{ group }}":</h2>
+    <br>
+    {% for post in posts %}
+    <ul>
+      <li>Автор: {{ post.author.get_full_name }}</li>
+      <li>Дата публикации: {{ post.pub_date|date:"d E Y" }}</li>
+      <li>Группа: {{ post.group }}</li>
+    </ul>
+    <p>{{ post.text }}</p>
+      {% if not forloop.last %}
+        <hr />
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endblock %}

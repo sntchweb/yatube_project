@@ -1,26 +1,31 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% load static %}
-      {% block content %}
-      <!-- класс py-5 создает отступы сверху и снизу блока -->
-      <div class="container py-5">
-        <h1>Все записи</h1>
-        {% for post in posts %}
-        <ul>
-          <li>
-            Автор: {{ post.author.get_full_name }}
-          </li>
-          <li>
-            Дата публикации: {{ post.pub_date|date:"d E Y" }}
-          </li>
-          <li>
-            Группа: {{ post.group }}
-          </li>
-        </ul>
-            <p>{{ post.text }}</p>
-          {% if post.group %}
-            <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
-          {% endif %} 
-        {% if not forloop.last %}<hr>{% endif %}
-        {% endfor %}
-      </div>
-      {% endblock %}
+
+
+<title>
+  {% block title %}
+    Последние обновления на сайте
+  {% endblock %}
+</title>
+
+
+{% block content %}
+  <div class="container py-5">
+    <h2>Главная страница проекта Yatube</h2>
+    <br>
+    {% for post in posts %}
+    <ul>
+      <li>Автор: {{ post.author.get_full_name }}</li>
+      <li>Дата публикации: {{ post.pub_date|date:"d E Y" }}</li>
+      <li>Группа: {{ post.group }}</li>
+    </ul>
+    <p>{{ post.text }}</p>
+    {% if post.group %}
+      <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+    {% endif %}
+      {% if not forloop.last %}
+        <hr />
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endblock %}
